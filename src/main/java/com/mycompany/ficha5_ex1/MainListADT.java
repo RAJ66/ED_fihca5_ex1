@@ -5,6 +5,9 @@
  */
 package com.mycompany.ficha5_ex1;
 
+import java.util.Arrays;
+import java.util.Iterator;
+
 /**
  *
  * @author vitor
@@ -19,7 +22,7 @@ public class MainListADT {
 
         ArrayList lista1 = new ArrayList();
 
-        int teste = 11;
+        int teste = 12;
 
         switch (teste) {
             case 0: //teste removeFirst com array vazio
@@ -128,6 +131,17 @@ public class MainListADT {
                 System.out.println(lista1.remove(3));
                 System.out.println(lista1.toString());
 
+                break;
+
+            case 12: //teste iterador
+                lista1.add(1);
+                lista1.add(2);
+                lista1.add(3);
+                Iterator it = lista1.iterator();
+                while (it.hasNext()) {
+                    int obj =  (int) it.next();
+                    System.out.println(obj);
+                }
                 break;
         }
     }

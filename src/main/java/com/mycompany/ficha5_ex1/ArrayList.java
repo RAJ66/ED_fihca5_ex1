@@ -154,7 +154,7 @@ public class ArrayList<T> implements ListADT<T> {
 
     @Override
     public Iterator<T> iterator() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return new MyItr();
     }
 
     /**
@@ -189,4 +189,25 @@ public class ArrayList<T> implements ListADT<T> {
         return str.toString();
     }
 
+    private class MyItr implements Iterator<T>{
+        int cursor = 0;
+        
+        MyItr() {}
+        @Override
+        public boolean hasNext() {
+             return cursor != size();
+        }
+
+        @Override
+        public T next() {
+             int i = cursor;
+                if (i>=size()) {
+                     System.out.println("Nao existe");
+                }
+                cursor++;
+                return list[i];
+        }
+        
+    } 
+   
 }
