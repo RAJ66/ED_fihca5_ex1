@@ -11,25 +11,31 @@ import java.util.Iterator;
  *
  * @author vitor
  */
-public class ArrayList<T> implements ListADT<T>{
-    
+public class ArrayList<T> implements ListADT<T> {
+
     protected T[] list;
     protected int rear;
     protected static int DEFAULT_CAPACITY = 5;
 
     public ArrayList() {
-        this.list =  (T[]) (new Object[DEFAULT_CAPACITY]);
+        this.list = (T[]) (new Object[DEFAULT_CAPACITY]);
         this.rear = 0;
     }
-    
-     public ArrayList(int tamanho) {
-        this.list =  (T[]) (new Object[tamanho]);
+
+    public ArrayList(int tamanho) {
+        this.list = (T[]) (new Object[tamanho]);
         this.rear = 0;
+    }
+
+    //metodo so para testes
+    public void add(T element) {
+        list[this.rear] = element;
+        this.rear++;
     }
 
     @Override
     public T removeFirst() throws EmptyCollectionException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        
     }
 
     @Override
@@ -59,7 +65,7 @@ public class ArrayList<T> implements ListADT<T>{
 
     @Override
     public boolean isEmpty() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return this.rear==0;
     }
 
     @Override
@@ -71,5 +77,5 @@ public class ArrayList<T> implements ListADT<T>{
     public Iterator<T> iterator() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
+
 }
