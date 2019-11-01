@@ -15,7 +15,7 @@ public class ArrayList<T> implements ListADT<T> {
 
     protected T[] list;
     protected int rear;
-    protected static int DEFAULT_CAPACITY = 5;
+    protected static int DEFAULT_CAPACITY = 3;
 
     public ArrayList() {
         this.list = (T[]) (new Object[DEFAULT_CAPACITY]);
@@ -35,7 +35,25 @@ public class ArrayList<T> implements ListADT<T> {
 
     @Override
     public T removeFirst() throws EmptyCollectionException {
-        
+        if (this.isEmpty()) {
+            throw new EmptyCollectionException("Lista Vazia!");
+        }
+
+        //guarda item a ser removido
+        T removido = this.first();
+
+        for (int i = 0; i < this.size() - 1; i++) {
+            this.list[i] = this.list[i + 1];
+        }
+
+        //coloca o ultimo elemento a null
+        this.list[this.rear - 1] = null;
+
+        //decrementa rear
+        this.rear--;
+
+        //retorna item removido
+        return removido;
     }
 
     @Override
@@ -46,11 +64,15 @@ public class ArrayList<T> implements ListADT<T> {
     @Override
     public T remove(T element) throws EmptyCollectionException, ElementoNaoExisteException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+
     }
 
     @Override
-    public T first() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public T first() throws EmptyCollectionException {
+        if (this.isEmpty()) {
+            throw new EmptyCollectionException("Lista Vazia!");
+        }
+        return this.list[0];
     }
 
     @Override
@@ -65,7 +87,7 @@ public class ArrayList<T> implements ListADT<T> {
 
     @Override
     public boolean isEmpty() {
-        return this.rear==0;
+        return this.rear == 0;
     }
 
     @Override
@@ -76,6 +98,38 @@ public class ArrayList<T> implements ListADT<T> {
     @Override
     public Iterator<T> iterator() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    /**
+     * Returns a string representation of this list.
+     *
+     * @return a string representation of this list
+     */
+    @Override
+    public String toString() {
+        StringBuilder str = new StringBuilder();
+        if (!this.isEmpty()) {
+            str.append("Primeiro elemento: ");
+            str.append(this.list[0]);
+            str.append("\n");
+            str.append("Ultimo elemento: ");
+            str.append(this.list[this.rear - 1]);
+            str.append("\n");
+        }
+
+        str.append("Nº elementos: ");
+        str.append(this.size());
+        str.append("\n");
+        str.append("Tamanho da lista: ");
+        str.append(this.list.length);
+        str.append("\n");
+
+        for (int i = 0; i < this.size(); i++) {
+            str.append(this.list[i]);
+            str.append("\n");
+        }
+
+        return str.toString();
     }
 
 }
