@@ -12,6 +12,20 @@ import java.util.Iterator;
  * @author vitor
  */
 public class ArrayList<T> implements ListADT<T>{
+    
+    protected T[] list;
+    protected int rear;
+    protected static int DEFAULT_CAPACITY = 5;
+
+    public ArrayList() {
+        this.list =  (T[]) (new Object[DEFAULT_CAPACITY]);
+        this.rear = 0;
+    }
+    
+     public ArrayList(int tamanho) {
+        this.list =  (T[]) (new Object[tamanho]);
+        this.rear = 0;
+    }
 
     @Override
     public T removeFirst() throws EmptyCollectionException {
@@ -50,7 +64,7 @@ public class ArrayList<T> implements ListADT<T>{
 
     @Override
     public int size() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return this.rear;
     }
 
     @Override

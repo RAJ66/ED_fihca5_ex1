@@ -9,11 +9,12 @@ package com.mycompany.ficha5_ex1;
  *
  * @author vitor
  */
-public interface UnorderedListADT<T> extends ListADT<Object>{
+public interface UnorderedListADT<T> extends ListADT<Object> {
+
     public void addToFront(T element);
-        public void addToRear(T element);
-            public void addAfter(T element,T atual);
 
+    public void addToRear(T element);
 
-    
+    public void addAfter(T element, T atual);
+
 }
