@@ -58,7 +58,18 @@ public class ArrayList<T> implements ListADT<T> {
 
     @Override
     public T removeLast() throws EmptyCollectionException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        //se a lista estiver vazia
+        if (this.isEmpty()) {
+            throw new EmptyCollectionException("Lista Vazia!");
+        }
+        //guarda item a ser removido
+            T removido = this.last();
+            
+             //coloca posicao desse item a null
+            this.list[this.rear - 1] = null;
+            //decrementa rear
+            this.rear--;
+             return removido;
     }
 
     @Override
@@ -76,8 +87,11 @@ public class ArrayList<T> implements ListADT<T> {
     }
 
     @Override
-    public T last() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public T last()throws EmptyCollectionException {
+        if (this.isEmpty()) {
+            throw new EmptyCollectionException("Lista Vazia!");
+        }
+        return this.list[this.rear -1];
     }
 
     @Override

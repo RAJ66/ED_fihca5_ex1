@@ -19,7 +19,7 @@ public class MainListADT {
 
         ArrayList lista1 = new ArrayList();
         
-        int teste = 3;
+        int teste = 7;
         
         switch (teste) {
             case 0: //teste removeFirst com array vazio
@@ -54,6 +54,43 @@ public class MainListADT {
 
                 System.out.println(lista1.toString());
                 System.out.println(lista1.removeFirst());
+                System.out.println(lista1.toString());
+                
+                break;
+                
+                
+                 case 4: //teste removeLast com array vazio
+
+                System.out.println(lista1.removeLast());
+                System.out.println(lista1.toString());
+                
+                break;
+            
+            case 5: //teste removeLast com array com 1 elemento
+                lista1.add(1);
+                System.out.println(lista1.toString());
+                System.out.println(lista1.removeLast());
+                System.out.println(lista1.toString());
+                
+                break;
+                
+                case 6: //teste removeLast com array com alguns
+                lista1.add(1);
+                lista1.add(2);
+
+                System.out.println(lista1.toString());
+                System.out.println(lista1.removeLast());
+                System.out.println(lista1.toString());
+                
+                break;
+                
+                case 7: //teste removeLast com array cheio
+                lista1.add(1);
+                lista1.add(2);
+                lista1.add(3);
+
+                System.out.println(lista1.toString());
+                System.out.println(lista1.removeLast());
                 System.out.println(lista1.toString());
                 
                 break;
