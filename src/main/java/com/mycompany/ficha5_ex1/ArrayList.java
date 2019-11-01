@@ -63,19 +63,59 @@ public class ArrayList<T> implements ListADT<T> {
             throw new EmptyCollectionException("Lista Vazia!");
         }
         //guarda item a ser removido
-            T removido = this.last();
-            
-             //coloca posicao desse item a null
-            this.list[this.rear - 1] = null;
-            //decrementa rear
-            this.rear--;
-             return removido;
+        T removido = this.last();
+
+        //coloca posicao desse item a null
+        this.list[this.rear - 1] = null;
+        //decrementa rear
+        this.rear--;
+        return removido;
     }
 
     @Override
     public T remove(T element) throws EmptyCollectionException, ElementoNaoExisteException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        //se a lista estiver vazia
+        if (this.isEmpty()) {
+            throw new EmptyCollectionException("Lista Vazia!");
+        }
+        
+        int elementPosition = this.find(element);
+        
+        if (elementPosition == -1) {
+             throw new ElementoNaoExisteException("Elemento não existe!");
+        }
+        
+        //guarda o item a ser removido
+        T removido = this.list[elementPosition];
+        
+        
+         for (int i = elementPosition; i < this.rear - 1; i++) {
+                this.list[i] = this.list[i + 1];
+            }
+         
+         //coloca posição desse item a null
+        this.list[this.rear - 1] = null;
+        
+        //decrementa rear
+        this.rear--;
+        
+         return removido;
 
+    }
+
+    /**
+     * Método que retorna a posição de um elemento
+     *
+     * @param element - elemento que procura
+     * @return posicao desse elemento
+     */
+    public int find(T element) {
+        for (int i = 0; i < this.rear; i++) {
+            if (this.list[i].equals(element)) {
+                return i;
+            }
+        }
+        return -1;
     }
 
     @Override
@@ -87,16 +127,19 @@ public class ArrayList<T> implements ListADT<T> {
     }
 
     @Override
-    public T last()throws EmptyCollectionException {
+    public T last() throws EmptyCollectionException {
         if (this.isEmpty()) {
             throw new EmptyCollectionException("Lista Vazia!");
         }
-        return this.list[this.rear -1];
+        return this.list[this.rear - 1];
     }
 
     @Override
     public boolean contains(T target) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        if (this.find(target) != -1) {
+            return true;
+        }
+        return false;
     }
 
     @Override
