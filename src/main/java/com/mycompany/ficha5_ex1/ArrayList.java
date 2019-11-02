@@ -6,6 +6,7 @@
 package com.mycompany.ficha5_ex1;
 
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 
 /**
  *
@@ -293,12 +294,11 @@ public class ArrayList<T> implements ListADT<T> {
          */
         @Override
         public T next() {
-            int i = cursor;
-            if (i >= size()) {
-                System.out.println("Nao existe");
+            if (!hasNext()) {
+                throw new NoSuchElementException();
             }
-            cursor++;
-            return list[i];
+            
+            return list[cursor++];
         }
 
     }
