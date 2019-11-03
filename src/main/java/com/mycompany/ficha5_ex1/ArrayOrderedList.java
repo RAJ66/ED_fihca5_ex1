@@ -5,6 +5,9 @@
  */
 package com.mycompany.ficha5_ex1;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author vitor
@@ -22,35 +25,44 @@ public class ArrayOrderedList<T> extends ArrayList<T> implements OrderedListADT<
 
     @Override
     public void add(T element) {
-        
+
         //cast
-        if(element instanceof Comparable){
-            Comparable<T> x=(Comparable<T>) element;
-        
-        
-        //meter no inicio sem nada
-        if (this.isEmpty()) {
-            this.list[this.rear] =  element;
-            this.rear++;
-            return;
+        if (element instanceof Comparable) {
+            Comparable<T> x = (Comparable<T>) element;
+            
+            if(this.rear == this.list.length){
+                this.expandCapacity();
         }
-        //meter a meio de cenas
-        if (!this.isEmpty()) {
-            for (int i = 0; i < this.rear; i++) {
-            if (x.compareTo(this.list[i])<0) {
-                for (int j = this.rear-1; j >=i; j--) {
-                    list[j+1] = list[j];
-                }
-                list[i] =  element;
+
+            //meter no inicio sem nada
+            if (this.isEmpty()) {
+                this.list[this.rear] = element;
                 this.rear++;
                 return;
             }
-        }
-        }
-        
-        //meter no fim
-        list[this.rear] =  element;
-        this.rear++;
+            //meter a meio de cenas
+            if (!this.isEmpty()) {
+                for (int i = 0; i < this.rear; i++) {
+                    if (x.compareTo(this.list[i]) < 0) {
+                        for (int j = this.rear - 1; j >= i; j--) {
+                            list[j + 1] = list[j];
+                        }
+                        list[i] = element;
+                        this.rear++;
+                        return;
+                    }
+                }
+            }
+
+            //meter no fim
+            list[this.rear] = element;
+            this.rear++;
+        }else{
+            try {
+                throw new NonComparableExcep("Nao e comparavel");
+            } catch (NonComparableExcep ex) {
+                Logger.getLogger(ArrayOrderedList.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
 
     }

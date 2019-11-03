@@ -21,10 +21,10 @@ public class MainArrayOrderList {
 
         ArrayOrderedList<String> lista1 = new ArrayOrderedList();
 
-        int teste = 0;
+        int teste = 2;
 
         switch (teste) {
-            case 0: //teste removeFirst com elementos na lista
+            case 0: //teste de ordenar alguns elementos
                 lista1.add("D");
                 lista1.add("B");
                 lista1.add("A");
@@ -34,6 +34,38 @@ public class MainArrayOrderList {
 
                 while (it.hasNext()) {
                     String obj = (String) it.next();
+                    System.out.println(obj);
+                }
+                break;
+
+            case 1: //teste de ordenar com todos os elemtos do array ocupados
+                lista1.add("D");
+                lista1.add("B");
+                lista1.add("A");
+                lista1.add("C");
+                lista1.add("E");
+
+                Iterator it2 = lista1.iterator();
+
+                while (it2.hasNext()) {
+                    String obj = (String) it2.next();
+                    System.out.println(obj);
+                }
+                break;
+
+            case 2: //teste de ordenar com todos os elemtos do array ocupados mais um para fazer expandCapacity do array
+                lista1.add("D");
+                lista1.add("B");
+                lista1.add("A");
+                lista1.add("C");
+                lista1.add("E");
+                lista1.add("G");
+                lista1.add("F");
+
+                Iterator it3 = lista1.iterator();
+
+                while (it3.hasNext()) {
+                    String obj = (String) it3.next();
                     System.out.println(obj);
                 }
                 break;
