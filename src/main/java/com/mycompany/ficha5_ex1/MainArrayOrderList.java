@@ -19,9 +19,24 @@ public class MainArrayOrderList {
     public static void main(String[] args) {
         // TODO code application logic here
 
-        ArrayOrderedList<Integer> test = new ArrayOrderedList();
-       test.add(5);
-       test.add(2);
-    }
+        ArrayOrderedList<String> lista1 = new ArrayOrderedList();
 
+        int teste = 0;
+
+        switch (teste) {
+            case 0: //teste removeFirst com elementos na lista
+                lista1.add("D");
+                lista1.add("B");
+                lista1.add("A");
+                lista1.add("C");
+
+                Iterator it = lista1.iterator();
+
+                while (it.hasNext()) {
+                    String obj = (String) it.next();
+                    System.out.println(obj);
+                }
+                break;
+        }
+    }
 }

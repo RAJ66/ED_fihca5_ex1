@@ -10,9 +10,10 @@ package com.mycompany.ficha5_ex1;
  * @author vitor
  * @param <T>
  */
-public class ArrayOrderedList<T extends Comparable> extends ArrayList<T> implements OrderedListADT<T> {
+public class ArrayOrderedList<T> extends ArrayList<T> implements OrderedListADT<T> {
 
     public ArrayOrderedList() {
+        super();
     }
 
     public ArrayOrderedList(int tamanho) {
@@ -20,11 +21,16 @@ public class ArrayOrderedList<T extends Comparable> extends ArrayList<T> impleme
     }
 
     @Override
-    public void add(T x) {
+    public void add(T element) {
+        
+        //cast
+        if(element instanceof Comparable){
+            Comparable<T> x=(Comparable<T>) element;
+        
         
         //meter no inicio sem nada
         if (this.isEmpty()) {
-            this.list[0] =  x;
+            this.list[this.rear] =  element;
             this.rear++;
             return;
         }
@@ -35,7 +41,7 @@ public class ArrayOrderedList<T extends Comparable> extends ArrayList<T> impleme
                 for (int j = this.rear-1; j >=i; j--) {
                     list[j+1] = list[j];
                 }
-                list[i] =  x;
+                list[i] =  element;
                 this.rear++;
                 return;
             }
@@ -43,8 +49,9 @@ public class ArrayOrderedList<T extends Comparable> extends ArrayList<T> impleme
         }
         
         //meter no fim
-        list[this.rear] =  x;
+        list[this.rear] =  element;
         this.rear++;
+        }
 
     }
 
