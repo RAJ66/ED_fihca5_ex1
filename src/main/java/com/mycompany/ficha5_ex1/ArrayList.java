@@ -11,6 +11,7 @@ import java.util.NoSuchElementException;
 /**
  *
  * @author vitor
+ * @param <T>
  */
 public class ArrayList<T> implements ListADT<T> {
 

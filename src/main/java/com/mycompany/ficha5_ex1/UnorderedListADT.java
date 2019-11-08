@@ -9,7 +9,7 @@ package com.mycompany.ficha5_ex1;
  *
  * @author vitor
  */
-public interface UnorderedListADT<T> extends ListADT<Object> {
+public interface UnorderedListADT<T> extends ListADT<T> {
 
     public void addToFront(T element);
 
