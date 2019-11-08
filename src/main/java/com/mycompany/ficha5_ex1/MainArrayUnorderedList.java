@@ -16,11 +16,11 @@ public class MainArrayUnorderedList {
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) {
+    public static void main(String[] args) throws ElementoNaoExisteException {
         // TODO code application logic here
         ArrayUnorderedList<String> lista1 = new ArrayUnorderedList();
 
-        int teste = 4;
+        int teste = 6;
 
         switch (teste) {
             case 0: //teste addToRear
@@ -53,7 +53,6 @@ public class MainArrayUnorderedList {
                 lista1.addToFront("B");
                 lista1.addToFront("A");
                 lista1.addToFront("C");
-                
 
                 Iterator it3 = lista1.iterator();
 
@@ -62,7 +61,7 @@ public class MainArrayUnorderedList {
                     System.out.println(obj);
                 }
                 break;
-                
+
             case 3: //teste addToFront com lista cheia
                 lista1.addToFront("D");
                 lista1.addToFront("B");
@@ -70,7 +69,7 @@ public class MainArrayUnorderedList {
                 lista1.addToFront("C");
                 lista1.addToFront("F");
                 lista1.addToFront("H");
-                
+
                 Iterator it4 = lista1.iterator();
 
                 while (it4.hasNext()) {
@@ -78,15 +77,49 @@ public class MainArrayUnorderedList {
                     System.out.println(obj);
                 }
                 break;
-                
+
             case 4: //teste com apenas dois elementos
                 lista1.addToRear("D");
                 lista1.addToFront("B");
-                
+
                 Iterator it5 = lista1.iterator();
 
                 while (it5.hasNext()) {
                     String obj = (String) it5.next();
+                    System.out.println(obj);
+                }
+                break;
+
+            case 5: //teste addAfter funcionar e com expandCapasity
+                lista1.addToRear("E");
+                lista1.addToRear("D");
+                lista1.addToRear("C");
+                lista1.addToRear("B");
+                lista1.addToRear("A");
+                
+                lista1.addAfter("Z", "C");
+
+                Iterator it6 = lista1.iterator();
+
+                while (it6.hasNext()) {
+                    String obj = (String) it6.next();
+                    System.out.println(obj);
+                }
+                break;
+                
+                 case 6: //teste addAfter funcionar sem ele existir
+                lista1.addToRear("E");
+                lista1.addToRear("D");
+                lista1.addToRear("C");
+                lista1.addToRear("B");
+                lista1.addToRear("A");
+                
+                lista1.addAfter("Z", "X");
+
+                Iterator it7 = lista1.iterator();
+
+                while (it7.hasNext()) {
+                    String obj = (String) it7.next();
                     System.out.println(obj);
                 }
                 break;
