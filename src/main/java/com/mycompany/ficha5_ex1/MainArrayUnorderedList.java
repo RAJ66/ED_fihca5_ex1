@@ -20,7 +20,7 @@ public class MainArrayUnorderedList {
         // TODO code application logic here
         ArrayUnorderedList<String> lista1 = new ArrayUnorderedList();
 
-        int teste = 6;
+        int teste = 2;
 
         switch (teste) {
             case 0: //teste addToRear

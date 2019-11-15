@@ -5,6 +5,7 @@
  */
 package com.mycompany.ficha5_ex1;
 
+import java.util.ConcurrentModificationException;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
@@ -15,7 +16,9 @@ import java.util.NoSuchElementException;
  */
 public class ArrayList<T> implements ListADT<T> {
 
-     /**
+    protected int modCount;
+
+    /**
      *
      * array of generic elements to represent the ArrayList
      */
@@ -35,6 +38,7 @@ public class ArrayList<T> implements ListADT<T> {
     public ArrayList() {
         this.list = (T[]) (new Object[DEFAULT_CAPACITY]);
         this.rear = 0;
+        this.modCount = 0;
     }
 
     /**
@@ -45,6 +49,8 @@ public class ArrayList<T> implements ListADT<T> {
     public ArrayList(int tamanho) {
         this.list = (T[]) (new Object[tamanho]);
         this.rear = 0;
+        this.modCount = 0;
+
     }
 
     /**
@@ -56,11 +62,11 @@ public class ArrayList<T> implements ListADT<T> {
         if (this.rear == this.list.length) {
             this.expandCapacity();
             list[this.rear] = element;
-            this.rear++;
         } else {
             list[this.rear] = element;
-            this.rear++;
         }
+        this.rear++;
+        this.modCount++;
     }
 
     /**
@@ -92,6 +98,8 @@ public class ArrayList<T> implements ListADT<T> {
             }
             this.list[this.rear - 1] = null;
             this.rear--;
+            this.modCount++;
+
             return removido;
         }
     }
@@ -110,6 +118,8 @@ public class ArrayList<T> implements ListADT<T> {
             T removido = this.last();
             this.list[this.rear - 1] = null;
             this.rear--;
+            this.modCount++;
+
             return removido;
         }
     }
@@ -139,6 +149,8 @@ public class ArrayList<T> implements ListADT<T> {
         }
         this.list[this.rear - 1] = null;
         this.rear--;
+        this.modCount++;
+
         return removido;
     }
 
@@ -266,6 +278,9 @@ public class ArrayList<T> implements ListADT<T> {
      */
     private class MyItr implements Iterator<T> {
 
+        int expectedModCount ;
+        boolean okToRemove ;
+
         /**
          * int that represents the position of the iterator
          */
@@ -276,6 +291,8 @@ public class ArrayList<T> implements ListADT<T> {
          *
          */
         MyItr() {
+            this.expectedModCount = modCount;
+            okToRemove = true;
         }
 
         /**
@@ -285,6 +302,9 @@ public class ArrayList<T> implements ListADT<T> {
          */
         @Override
         public boolean hasNext() {
+            if (this.expectedModCount != modCount) {
+                throw new ConcurrentModificationException("Lista imcompativel!");
+            }
             return cursor != size();
         }
 
@@ -295,11 +315,31 @@ public class ArrayList<T> implements ListADT<T> {
          */
         @Override
         public T next() {
+ 
             if (!hasNext()) {
                 throw new NoSuchElementException();
             }
-            
+
             return list[cursor++];
+        }
+
+        @Override
+        public void remove() {
+            if (this.expectedModCount != modCount) {
+                throw new ConcurrentModificationException("modCount incompativel");
+            }
+            if (!okToRemove) {
+                throw new NoSuchElementException("ja foi removido");
+            }
+            
+            T element = list[cursor];
+             
+            try{
+                ArrayList.this.remove(element);
+            }catch(EmptyCollectionException | ElementoNaoExisteException ex){
+                throw new ConcurrentModificationException();
+            }
+
         }
 
     }
