@@ -22,7 +22,7 @@ public class MainListADT {
 
         ArrayList lista1 = new ArrayList();
 
-        int teste = 24;
+        int teste = 25;
 
         switch (teste) {
             case 0: //teste removeFirst com elementos na lista
@@ -227,7 +227,7 @@ public class MainListADT {
                 }
                 break;
 
-            case 23: //teste iterador remove
+            case 23: //teste iterador remove sem iterar
                 lista1.add(1);
                 lista1.add(2);
                 lista1.add(3);
@@ -242,15 +242,50 @@ public class MainListADT {
                 }
 
                 break;
-                
-                case 24: //teste iterador remove
+
+            case 24: //teste iterador remove todos porque ja form iterados
                 lista1.add(1);
                 lista1.add(2);
                 lista1.add(3);
-                Iterator it4 = lista1.iterator();
-                it4.remove();
-                it4.remove();
 
+                Iterator it4 = lista1.iterator();
+
+                while (it4.hasNext()) {
+
+                    int obj = (int) it4.next();
+                    System.out.println(obj);
+
+                    it4.remove();
+
+                }
+
+                Iterator it5 = lista1.iterator();
+
+                while (it5.hasNext()) {
+                    int obj = (int) it5.next();
+                    System.out.println(obj);
+                }
+
+                break;
+                
+                
+                case 25: //teste iterador remove com modcount diferente
+                lista1.add(1);
+                lista1.add(2);
+                lista1.add(3);
+
+                Iterator it6 = lista1.iterator();
+
+                while (it6.hasNext()) {
+
+                    int obj = (int) it6.next();
+                    System.out.println(obj);
+                    lista1.removeFirst();
+                    it6.remove();
+
+                }
+
+                
 
                 break;
         }

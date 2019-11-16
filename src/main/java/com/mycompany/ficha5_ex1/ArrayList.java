@@ -278,8 +278,8 @@ public class ArrayList<T> implements ListADT<T> {
      */
     private class MyItr implements Iterator<T> {
 
-        int expectedModCount ;
-        boolean okToRemove ;
+        int expectedModCount;
+        boolean okToRemove;
 
         /**
          * int that represents the position of the iterator
@@ -292,7 +292,7 @@ public class ArrayList<T> implements ListADT<T> {
          */
         MyItr() {
             this.expectedModCount = modCount;
-            okToRemove = true;
+            okToRemove = false;
         }
 
         /**
@@ -315,11 +315,10 @@ public class ArrayList<T> implements ListADT<T> {
          */
         @Override
         public T next() {
- 
             if (!hasNext()) {
                 throw new NoSuchElementException();
             }
-
+            okToRemove = true;
             return list[cursor++];
         }
 
@@ -328,15 +327,19 @@ public class ArrayList<T> implements ListADT<T> {
             if (this.expectedModCount != modCount) {
                 throw new ConcurrentModificationException("modCount incompativel");
             }
+
             if (!okToRemove) {
-                throw new NoSuchElementException("ja foi removido");
+                throw new NoSuchElementException("impossivel remover");
             }
             
-            T element = list[cursor];
-             
-            try{
+            T element = list[cursor - 1];
+
+            try {
                 ArrayList.this.remove(element);
-            }catch(EmptyCollectionException | ElementoNaoExisteException ex){
+                cursor--;
+
+                this.expectedModCount = modCount;
+            } catch (EmptyCollectionException | ElementoNaoExisteException ex) {
                 throw new ConcurrentModificationException();
             }
 
