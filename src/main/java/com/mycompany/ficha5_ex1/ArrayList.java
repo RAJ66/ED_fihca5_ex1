@@ -46,11 +46,10 @@ public class ArrayList<T> implements ListADT<T> {
      *
      * @param tamanho represents the specified capacity
      */
-    public ArrayList(int tamanho) {
-        this.list = (T[]) (new Object[tamanho]);
+    public ArrayList(int size) {
+        this.list = (T[]) (new Object[size]);
         this.rear = 0;
         this.modCount = 0;
-
     }
 
     /**
@@ -58,13 +57,12 @@ public class ArrayList<T> implements ListADT<T> {
      *
      * @param element the element to be added to the rear of this list
      */
-    public void add(T element) {
+    public void add_test(T element) {
         if (this.rear == this.list.length) {
             this.expandCapacity();
-            list[this.rear] = element;
-        } else {
-            list[this.rear] = element;
         }
+        
+        list[this.rear] = element;
         this.rear++;
         this.modCount++;
     }
@@ -91,17 +89,18 @@ public class ArrayList<T> implements ListADT<T> {
     public T removeFirst() throws EmptyCollectionException {
         if (this.isEmpty()) {
             throw new EmptyCollectionException("Lista Vazia!");
-        } else {
-            T removido = this.first();
-            for (int i = 0; i < this.rear - 1; i++) {
-                this.list[i] = this.list[i + 1];
-            }
-            this.list[this.rear - 1] = null;
-            this.rear--;
-            this.modCount++;
-
-            return removido;
+        } 
+                
+        T removido = this.first();
+        for (int i = 0; i < this.rear - 1; i++) {
+            this.list[i] = this.list[i + 1];
         }
+        this.list[this.rear - 1] = null;
+        this.rear--;
+        this.modCount++;
+
+        return removido;
+        
     }
 
     /**
@@ -114,14 +113,14 @@ public class ArrayList<T> implements ListADT<T> {
     public T removeLast() throws EmptyCollectionException {
         if (this.isEmpty()) {
             throw new EmptyCollectionException("Lista Vazia!");
-        } else {
-            T removido = this.last();
-            this.list[this.rear - 1] = null;
-            this.rear--;
-            this.modCount++;
-
-            return removido;
         }
+        
+        T removido = this.last();
+        this.list[this.rear - 1] = null;
+        this.rear--;
+        this.modCount++;
+
+        return removido;       
     }
 
     /**
@@ -143,6 +142,7 @@ public class ArrayList<T> implements ListADT<T> {
         if (elementPosition == -1) {
             throw new ElementoNaoExisteException("Elemento não existe!");
         }
+        
         T removido = this.list[elementPosition];
         for (int i = elementPosition; i < this.rear - 1; i++) {
             this.list[i] = this.list[i + 1];
@@ -165,8 +165,8 @@ public class ArrayList<T> implements ListADT<T> {
         if (this.isEmpty()) {
             throw new EmptyCollectionException("Lista Vazia!");
         }
+        
         return this.list[0];
-
     }
 
     /**
@@ -180,6 +180,7 @@ public class ArrayList<T> implements ListADT<T> {
         if (this.isEmpty()) {
             throw new EmptyCollectionException("Lista Vazia!");
         }
+        
         return this.list[this.rear - 1];
     }
 
@@ -194,7 +195,7 @@ public class ArrayList<T> implements ListADT<T> {
             if (this.list[i].equals(element)) {
                 return i;
             }
-        }
+        }        
         return -1;
     }
 
@@ -206,10 +207,7 @@ public class ArrayList<T> implements ListADT<T> {
      */
     @Override
     public boolean contains(T target) {
-        if (this.find(target) != -1) {
-            return true;
-        }
-        return false;
+        return this.find(target) != -1;
     }
 
     /**
@@ -219,7 +217,6 @@ public class ArrayList<T> implements ListADT<T> {
      */
     @Override
     public boolean isEmpty() {
-        //se o rear for a primeira posição
         return this.rear == 0;
     }
 
@@ -251,6 +248,7 @@ public class ArrayList<T> implements ListADT<T> {
     @Override
     public String toString() {
         StringBuilder str = new StringBuilder();
+        
         if (!this.isEmpty()) {
             str.append("Primeiro elemento: ");
             str.append(this.list[0]);
@@ -265,11 +263,11 @@ public class ArrayList<T> implements ListADT<T> {
         str.append("Tamanho da lista: ");
         str.append(this.list.length);
         str.append("\n");
-
         for (int i = 0; i < this.size(); i++) {
             str.append(this.list[i]);
             str.append("\n");
         }
+        
         return str.toString();
     }
 
@@ -305,6 +303,7 @@ public class ArrayList<T> implements ListADT<T> {
             if (this.expectedModCount != modCount) {
                 throw new ConcurrentModificationException("Lista imcompativel!");
             }
+            
             return cursor != size();
         }
 
@@ -318,7 +317,9 @@ public class ArrayList<T> implements ListADT<T> {
             if (!hasNext()) {
                 throw new NoSuchElementException();
             }
+            
             okToRemove = true;
+            
             return list[cursor++];
         }
 
@@ -335,10 +336,11 @@ public class ArrayList<T> implements ListADT<T> {
             T element = list[cursor - 1];
 
             try {
-                ArrayList.this.remove(element);
-                cursor--;
-
+                ArrayList.this.remove(element);               
+                this.okToRemove = false;
                 this.expectedModCount = modCount;
+                
+                cursor--;    
             } catch (EmptyCollectionException | ElementoNaoExisteException ex) {
                 throw new ConcurrentModificationException();
             }
